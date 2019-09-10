@@ -31,7 +31,8 @@
                         <td>&euro; {{ product.price }}</td>
                         <td>&euro; {{ id[1] * product.price }}</td>
                         <td>
-                            <p>No actions here... yet</p>
+                            <a href="{{ path('cart_index', {'remove': product.id}) }}">-</a>
+                            <a href="{{ path('cart_index', {'add': product.id}) }}">+</a>
                         </td>
                     </tr>
                     {% set totalPrice = totalPrice + (id[1] * product.price) %}

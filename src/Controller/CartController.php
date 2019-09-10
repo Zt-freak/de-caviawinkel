@@ -26,11 +26,75 @@ class CartController extends AbstractController
         $this->session = $session;
     }
 
+    private function add($id) {
+        if ($this->session->get('cart') == null) {
+            $cart = [];
+            $cart[0][0] = $id;
+            $cart[0][1] = 0;
+        }
+        else {
+            $cart = $this->session->get('cart');
+        }
+
+        $exists = false;
+        foreach ($cart as &$value) {
+            if ($value[0] == $id) {
+                $value[1]++;
+                $exists = true;
+            }
+        }
+
+        if ($exists == false) {
+            array_push($cart, [$id, 1]);
+        }
+        unset($value);
+
+        $this->session->set('cart', $cart);
+    }
+
+    private function remove($id) {
+        if ($this->session->get('cart') == null) {
+            $cart = [];
+            $cart[0][0] = $id;
+            $cart[0][1] = 0;
+        }
+        else {
+            $cart = $this->session->get('cart');
+        }
+
+        foreach ($cart as &$value) {
+            if ($value[0] == $id) {
+                $value[1]--;
+
+                if($value[1] <= 0 || $value[1] == null) {
+                    unset($cart[array_search($value, $cart)]);
+                }
+            }
+        }
+        unset($value);
+
+
+        $this->session->set('cart', $cart);
+    }
+
     /**
      * @Route("/", name="cart_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
+        $add = $request->query->get("add");
+        $remove = $request->query->get("remove");
+        if ($add !== null) {
+            if (is_numeric($add)) {
+                $this->add($add);
+            }
+        }
+        if ($remove !== null) {
+            if (is_numeric($remove)) {
+                $this->remove($remove);
+            }
+        }
+        
         $cart = $this->session->get('cart');
         $products = [];
 
