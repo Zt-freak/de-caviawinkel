@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Your Cart{% endblock %}
+{% block title %}Checkout{% endblock %}
 
 {% block body %}
     <style>
@@ -8,7 +8,9 @@
             text-align: left;
         }
     </style>
-    <h1>Your Cart</h1>
+    <h1>Checkout</h1>
+
+    {{ include('cart/_form.html.twig') }}
 
     <table class="table">
         <thead>
@@ -17,7 +19,6 @@
                 <th>Name</th>
                 <th>Price per product</th>
                 <th>Total price for this product</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -30,9 +31,6 @@
                         <td>{{ product.name }}</td>
                         <td>&euro; {{ product.price }}</td>
                         <td>&euro; {{ id[1] * product.price }}</td>
-                        <td>
-                            <p>No actions here... yet</p>
-                        </td>
                     </tr>
                     {% set totalPrice = totalPrice + (id[1] * product.price) %}
                 {% endif %}
@@ -49,5 +47,4 @@
             </tr>
         </tbody>
     </table>
-    <a href="{{ path('cart_checkout') }}">Checkout</a>
 {% endblock %}

@@ -6,6 +6,13 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="{{ path('default') }}">Home</a></li>
+                <li><a href="{{ path('product_index') }}">Products</a></li>
+                <li><a href="{{ path('cart_index') }}">Your Cart</a></li>
+            <ul>
+        </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
