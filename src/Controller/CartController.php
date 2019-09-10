@@ -95,14 +95,14 @@ class CartController extends AbstractController
             }
         }
         
-        $cart = $this->session->get('cart');
+        $cart = $this->session->get('cart', []);
         $products = [];
 
         foreach ($cart as &$value) {
             $product = $productRepository->findById($value[0])[0];
             array_push($products, ["id"=>$product->getId(), "name"=>$product->getName(), "price"=>$product->getPrice()]);
         }
-        
+
         return $this->render('cart/index.html.twig', [
             'products' => $products,
         ]);
