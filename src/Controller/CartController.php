@@ -73,6 +73,18 @@ class CartController extends AbstractController
         }
         unset($value);
 
+        $this->session->set('cart', $cart);
+    }
+
+    private function delete($id) {
+        $cart = $this->session->get('cart');
+
+        foreach ($cart as &$value) {
+            if ($value[0] == $id) {
+                unset($cart[array_search($value, $cart)]);
+            }
+        }
+        unset($value);
 
         $this->session->set('cart', $cart);
     }
@@ -84,6 +96,7 @@ class CartController extends AbstractController
     {
         $add = $request->query->get("add");
         $remove = $request->query->get("remove");
+        $delete = $request->query->get("delete");
         if ($add !== null) {
             if (is_numeric($add)) {
                 $this->add($add);
@@ -92,6 +105,11 @@ class CartController extends AbstractController
         if ($remove !== null) {
             if (is_numeric($remove)) {
                 $this->remove($remove);
+            }
+        }
+        if ($delete !== null) {
+            if (is_numeric($delete)) {
+                $this->delete($delete);
             }
         }
         

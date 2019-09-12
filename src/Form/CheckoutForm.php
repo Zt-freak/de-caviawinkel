@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class CheckoutForm extends AbstractType
 {
@@ -12,7 +13,7 @@ class CheckoutForm extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('e-mail')
+            ->add('e-mail', EmailType::class)
         ;
     }
 }
