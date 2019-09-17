@@ -30,7 +30,7 @@
                         <td>{{ product.name }}</td>
                         <td>&euro; {{ product.price }}</td>
                         <td>&euro; {{ id[1] * product.price }}</td>
-                        <td>
+                        <td class="actionscell">
                             <a href="{{ path('cart_index', {'remove': product.id}) }}">-</a>
                             <a href="{{ path('cart_index', {'add': product.id}) }}">+</a>
                             <a href="{{ path('cart_index', {'delete': product.id}) }}">DELET DIS</a>

@@ -11,7 +11,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>DescriptioM</th>
+                <th>Descriptiom</th>
                 <th>Image</th>
                 <th>Category</th>
                 <th>actions</th>
@@ -22,14 +22,14 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
+                <td>&euro; {{ product.price }}</td>
                 <td>{{ product.descriptiom }}</td>
-                <td>{{ product.image }}</td>
+                <td><img class="productimage" src="{{ asset(product.image) }}"></td>
                 <td>{{ product.category }}</td>
-                <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                    <a href="{{ path('product_add', {'id': product.id}) }}">add</a>
+                <td class="actionscell">
+                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a><br />
+                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a><br />
+                    <a href="{{ path('product_add', {'id': product.id}) }}">add</a><br />
                 </td>
             </tr>
         {% else %}

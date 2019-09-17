@@ -97,20 +97,41 @@ class CartController extends AbstractController
         $add = $request->query->get("add");
         $remove = $request->query->get("remove");
         $delete = $request->query->get("delete");
-        if ($add !== null) {
-            if (is_numeric($add)) {
-                $this->add($add);
+
+        if ($add == "" && $remove == "" && $delete == "") {
+            $isValid = true;
+        }
+        else {
+            $isValid = false;
+        }
+
+        if ($productRepository->findById($add) != null) {
+            if ($add !== null) {
+                if ($productRepository->findById($add)) {
+                    $this->add($add);
+                    $isValid = true;
+                }
             }
         }
-        if ($remove !== null) {
-            if (is_numeric($remove)) {
-                $this->remove($remove);
+        if ($productRepository->findById($remove) != null) {
+            if ($remove !== null) {
+                if ($productRepository->findById($remove)) {
+                    $this->remove($remove);
+                    $isValid = true;
+                }
             }
         }
-        if ($delete !== null) {
-            if (is_numeric($delete)) {
-                $this->delete($delete);
+        if ($productRepository->findById($delete) != null) {
+            if ($delete !== null) {
+                if ($productRepository->findById($delete)) {
+                    $this->delete($delete);
+                    $isValid = true;
+                }
             }
+        }
+
+        if ($isValid == false) {
+            echo('<div class="errornotice"><img style="height: 100px;" src="https://pbs.twimg.com/media/D7FOGefXsAI_6td?format=jpg&name=4096x4096">Exception! Your entered number is an invalid value. Check your request in the address bar.<br />Also, trans rights are human rights!</div>');
         }
         
         $cart = $this->session->get('cart', []);
